@@ -1,14 +1,18 @@
-name: CI Pipeline - Employee 3-Tier App (GHCR)
+name: CI/CD Pipeline - Employee 3-Tier App (GHCR)
 
 on:
   push:
     branches:
       - main
       - master
+    paths-ignore:
+      - '.github/workflows/ci.yaml'
   pull_request:
     branches:
       - main
       - master
+    paths-ignore:
+      - '.github/workflows/ci.yaml'
 
 permissions:
   contents: read

@@ -1,0 +1,39 @@
+name: Test Self-Hosted Runner
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_message:
+        description: 'Custom message to echo'
+        required: false
+        default: 'Hello from Self-Hosted Runner!'
+
+jobs:
+  test-runner:
+    name: "🖥️ Run Diagnostic Job"
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Print Runner & OS Diagnostics
+        shell: bash
+        run: |
+          echo "=========================================="
+          echo "🚀 Message: ${{ github.event.inputs.test_message }}"
+          echo "=========================================="
+          echo "Hostname    : $(hostname)"
+          echo "OS Details  : $(uname -a 2>/dev/null || systeminfo | findstr /B /C:\"OS Name\" 2>/dev/null || echo 'Unknown')"
+          echo "Current User: $(whoami)"
+          echo "Current Path: $(pwd)"
+          echo "=========================================="
+
+      - name: Check Installed Tools
+        shell: bash
+        run: |
+          echo "--- Checking Installed Tool Versions ---"
+          docker --version 2>/dev/null || echo "Docker: Not Found"
+          kubectl version --client 2>/dev/null || echo "Kubectl: Not Found"
+          helm version 2>/dev/null || echo "Helm: Not Found"
+          git --version 2>/dev/null || echo "Git: Not Found"
+          echo "=========================================="

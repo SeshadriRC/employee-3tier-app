@@ -1,0 +1,20 @@
+namespace: employee-dev
+
+backend:
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+frontend:
+  replicaCount: 1
+  service:
+    type: NodePort
+    nodePort: 30080
+
+database:
+  storage: 2Gi

@@ -1,0 +1,19 @@
+namespace: employee-prod
+
+backend:
+  replicaCount: 3
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1024Mi
+    limits:
+      cpu: 2000m
+      memory: 2048Mi
+
+frontend:
+  replicaCount: 3
+  service:
+    type: LoadBalancer
+
+database:
+  storage: 20Gi
